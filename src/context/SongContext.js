@@ -1,6 +1,6 @@
 import { createContext, useRef, useState } from "react";
 
-import { totalSongs as songs } from "../asset/utils";
+import { songs as totalSongs } from "../asset/utils";
 
 const SongContext = createContext({
   songs: [],
