@@ -2,8 +2,8 @@ import React from "react";
 
 const Song = () => {
   return (
-    <div>
-      <h1>Song Cover</h1>
+    <div className="song-container">
+      <img />
       <h2>Song Name</h2>
       <h3>Artist Name</h3>
     </div>
