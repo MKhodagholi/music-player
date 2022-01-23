@@ -9,7 +9,8 @@ import { SongContext } from "../../context/SongContext";
 
 const Player = () => {
   const context = useContext(SongContext);
-  const { changeIsPlaying, audioRef, isPlaying, songInfo } = context;
+  const { changeIsPlaying, audioRef, isPlaying, songInfo, setSongInfo } =
+    context;
   const playHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -17,6 +18,11 @@ const Player = () => {
       audioRef.current.play();
     }
     changeIsPlaying();
+  };
+
+  const dragHandler = (e) => {
+    setSongInfo({ ...songInfo, currentTime: e.target.value });
+    audioRef.current.currentTime = e.target.value;
   };
 
   const getTime = (time) => {
@@ -29,7 +35,13 @@ const Player = () => {
     <div className="player">
       <div className="time-control">
         <p>{getTime(songInfo.currentTime)}</p>
-        <input type="range" />
+        <input
+          min={0}
+          max={songInfo.duration}
+          value={songInfo.currentTime}
+          onChange={dragHandler}
+          type="range"
+        />
         <p>{getTime(songInfo.duration)}</p>
       </div>
       <div className="play-control">
