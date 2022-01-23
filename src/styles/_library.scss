@@ -32,6 +32,11 @@
   background-color: #c3c3fa !important;
 }
 
+.library-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
 .song-description {
   padding: 1rem;
   h3 {
