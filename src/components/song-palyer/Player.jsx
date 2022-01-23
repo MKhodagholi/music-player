@@ -9,8 +9,16 @@ import { SongContext } from "../../context/SongContext";
 
 const Player = () => {
   const context = useContext(SongContext);
-  const { changeIsPlaying, audioRef, isPlaying, songInfo, setSongInfo } =
-    context;
+  const {
+    changeIsPlaying,
+    audioRef,
+    isPlaying,
+    songInfo,
+    setSongInfo,
+    currentSong,
+    songs,
+    setCurrentSong,
+  } = context;
   const playHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -18,6 +26,19 @@ const Player = () => {
       audioRef.current.play();
     }
     changeIsPlaying();
+  };
+
+  const skipTrackHandler = (direction) => {
+    const indexCurrentSong = songs.findIndex((song) => song === currentSong);
+    if (direction === "skip-back") {
+      let prevSong = (indexCurrentSong - 1) % songs.length;
+      console.log(prevSong);
+      if (prevSong < 0) prevSong += songs.length;
+      setCurrentSong(songs[prevSong]);
+    } else if (direction === "skip-forward") {
+      const nextSong = (indexCurrentSong + 1) % songs.length;
+      setCurrentSong(songs[nextSong]);
+    }
   };
 
   const dragHandler = (e) => {
@@ -45,7 +66,14 @@ const Player = () => {
         <p>{getTime(songInfo.duration)}</p>
       </div>
       <div className="play-control">
-        <FontAwesomeIcon className="skip-back" icon={faAngleLeft} size="2x" />
+        <FontAwesomeIcon
+          onClick={() => {
+            skipTrackHandler("skip-back");
+          }}
+          className="skip-back"
+          icon={faAngleLeft}
+          size="2x"
+        />
         <FontAwesomeIcon
           onClick={playHandler}
           className="play"
@@ -53,6 +81,9 @@ const Player = () => {
           size="2x"
         />
         <FontAwesomeIcon
+          onClick={() => {
+            skipTrackHandler("skip-forward");
+          }}
           className="skip-forward"
           icon={faAngleRight}
           size="2x"
