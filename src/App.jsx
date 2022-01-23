@@ -6,11 +6,13 @@ import Library from "./components/library/Library";
 
 import "./styles/app.scss";
 import { SongProvider } from "./context/SongContext";
+import Nav from "./components/Nav/Nav";
 
 function App() {
   return (
     <SongProvider>
       <div className="app">
+        <Nav />
         <Library />
         <Song />
         <Player />
