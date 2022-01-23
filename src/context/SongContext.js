@@ -12,12 +12,15 @@ const SongContext = createContext({
   songInfo: {},
   setSongInfo: () => {},
   timeUpdateHandler: () => {},
+  libraryIsOpen: false,
+  setLibraryIsOpen: () => {},
 });
 
 const SongProvider = ({ children }) => {
   const [songs, setSongs] = useState(totalSongs);
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [libraryIsOpen, setLibraryIsOpen] = useState(false);
 
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
@@ -45,6 +48,8 @@ const SongProvider = ({ children }) => {
     songInfo,
     setSongInfo,
     timeUpdateHandler,
+    libraryIsOpen,
+    setLibraryIsOpen,
   };
 
   return <SongContext.Provider value={value}>{children}</SongContext.Provider>;
