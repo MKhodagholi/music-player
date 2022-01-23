@@ -1,6 +1,6 @@
 import React from "react";
 
-const Plyaer = () => {
+const Player = () => {
   return (
     <div>
       <h1>Skip-back</h1>
