@@ -1,9 +1,10 @@
 import { createContext, useRef, useState } from "react";
 
-import { songs } from "../asset/utils";
+import { totalSongs as songs } from "../asset/utils";
 
 const SongContext = createContext({
   songs: [],
+  setSongs: () => {},
   currentSong: {},
   setCurrentSong: () => {},
   audioRef: null,
@@ -14,8 +15,8 @@ const SongContext = createContext({
 });
 
 const SongProvider = ({ children }) => {
-  const totalSongs = songs;
-  const [currentSong, setCurrentSong] = useState(totalSongs[0]);
+  const [songs, setSongs] = useState(totalSongs);
+  const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [songInfo, setSongInfo] = useState({
@@ -34,7 +35,8 @@ const SongProvider = ({ children }) => {
   };
   const audioRef = useRef(null);
   const value = {
-    songs: totalSongs,
+    songs,
+    setSongs,
     currentSong,
     setCurrentSong,
     audioRef,
