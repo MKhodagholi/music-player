@@ -4,10 +4,18 @@ import { SongContext } from "../../context/SongContext";
 
 const LibrarySong = ({ song }) => {
   const context = useContext(SongContext);
-  const { isPlaying, audioRef, setCurrentSong } = context;
+  const { isPlaying, audioRef, setCurrentSong, songs, setSongs } = context;
 
   const clickSongHandler = (song) => {
     setCurrentSong(song);
+    const newSongs = songs.map((songInSongs) => {
+      if (songInSongs === song) {
+        return { ...song, active: true };
+      } else {
+        return { ...songInSongs, active: false };
+      }
+    });
+    setSongs(newSongs);
     if (isPlaying) {
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
@@ -19,7 +27,10 @@ const LibrarySong = ({ song }) => {
   };
 
   return (
-    <div className="library-song" onClick={() => clickSongHandler(song)}>
+    <div
+      className={`library-song ${song.active && "selected"}`}
+      onClick={() => clickSongHandler(song)}
+    >
       <img src={song.cover} />
       <div className="song-description">
         <h3>{song.name}</h3>
