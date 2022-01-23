@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SongContext } from "../../context/SongContext";
 
 const Player = () => {
   const context = useContext(SongContext);
-  const { changeIsPlaying, audioRef, isPlaying } = context;
+  const { changeIsPlaying, audioRef, isPlaying, songInfo } = context;
   const playHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -19,12 +19,18 @@ const Player = () => {
     changeIsPlaying();
   };
 
+  const getTime = (time) => {
+    return (
+      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+    );
+  };
+
   return (
     <div className="player">
       <div className="time-control">
-        <p>Start Time</p>
+        <p>{getTime(songInfo.currentTime)}</p>
         <input type="range" />
-        <p>End Time</p>
+        <p>{getTime(songInfo.duration)}</p>
       </div>
       <div className="play-control">
         <FontAwesomeIcon className="skip-back" icon={faAngleLeft} size="2x" />
