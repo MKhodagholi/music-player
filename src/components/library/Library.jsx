@@ -5,9 +5,9 @@ import LibrarySong from "./LibrarySong";
 
 const Library = () => {
   const context = useContext(SongContext);
-  const { songs } = context;
+  const { songs, libraryIsOpen } = context;
   return (
-    <div className="library">
+    <div className={`library ${libraryIsOpen && "library-active"}`}>
       <h1>Library</h1>
       <div>
         {songs.map((song) => (
