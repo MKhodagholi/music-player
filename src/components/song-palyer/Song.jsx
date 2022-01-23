@@ -1,11 +1,15 @@
 import React from "react";
+import { useContext } from "react";
+import { SongContext } from "../../context/SongContext";
 
 const Song = () => {
+  const context = useContext(SongContext);
+  const { songs, currentSong, setCurrentSong } = context;
   return (
     <div className="song-container">
-      <img />
-      <h2>Song Name</h2>
-      <h3>Artist Name</h3>
+      <img src={currentSong.cover} />
+      <h2>{currentSong.name}</h2>
+      <h3>{currentSong.artist}</h3>
     </div>
   );
 };
