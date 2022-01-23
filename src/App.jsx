@@ -1,12 +1,16 @@
 import React from "react";
 
+import Song from "./components/song-palyer/Song";
+import Player from "./components/song-palyer/Player";
+
 import "./styles/app.scss";
 
 function App() {
   return (
-    <>
-      <h3>Hello World</h3>
-    </>
+    <div className="app">
+      <Song />
+      <Player />
+    </div>
   );
 }
 
