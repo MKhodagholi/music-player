@@ -4,13 +4,15 @@ import { SongContext } from "../../context/SongContext";
 
 const Song = () => {
   const context = useContext(SongContext);
-  const { songs, currentSong, setCurrentSong } = context;
+  const { songs, currentSong, setCurrentSong, audioRef } = context;
+
   return (
     <div className="song-container">
       <img src={currentSong.cover} />
       <h2>{currentSong.name}</h2>
       <h3>{currentSong.artist}</h3>
-    </div>
+      <audio ref={audioRef} src={currentSong.audio}></audio>
+    </div> 
   );
 };
 
