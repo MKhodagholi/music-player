@@ -6,6 +6,7 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { SongContext } from "../../context/SongContext";
+import { useEffect } from "react";
 
 const Player = () => {
   const context = useContext(SongContext);
@@ -18,6 +19,7 @@ const Player = () => {
     currentSong,
     songs,
     setCurrentSong,
+    setSongs,
   } = context;
   const playHandler = () => {
     if (isPlaying) {
@@ -32,7 +34,6 @@ const Player = () => {
     const indexCurrentSong = songs.findIndex((song) => song === currentSong);
     if (direction === "skip-back") {
       let prevSong = (indexCurrentSong - 1) % songs.length;
-      console.log(prevSong);
       if (prevSong < 0) prevSong += songs.length;
       setCurrentSong(songs[prevSong]);
     } else if (direction === "skip-forward") {
@@ -51,6 +52,34 @@ const Player = () => {
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   };
+
+  useEffect(() => {
+    const newSongs = songs.map((songInSongs) => {
+      if (songInSongs === currentSong) {
+        return { ...songInSongs, active: true };
+      } else {
+        return { ...songInSongs, active: false };
+      }
+    });
+    console.log(newSongs);
+    console.log(currentSong);
+    setSongs(newSongs);
+    // setSongs(newSongs);
+    // setTimeout(() => {
+    //   setSongs(newSongs);
+    // }, 300);
+    // console.log(newSongs);
+    // setSongs(newSongs);
+    // console.log(currentSong);
+    // if (isPlaying) {
+    //   const playPromise = audioRef.current.play();
+    //   if (playPromise !== undefined) {
+    //     playPromise.then((audio) => {
+    //       audioRef.current.play();
+    //     });
+    //   }
+    // }
+  }, [currentSong]);
 
   return (
     <div className="player">
