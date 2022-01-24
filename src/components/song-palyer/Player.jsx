@@ -31,6 +31,17 @@ const Player = () => {
     changeIsPlaying();
   };
 
+  const activeLibraryHandler = (nextPrev) => {
+    const newSongs = songs.map((songInSongs) => {
+      if (songInSongs.id === nextPrev.id) {
+        return { ...songInSongs, active: true };
+      } else {
+        return { ...songInSongs, active: false };
+      }
+    });
+    setSongs(newSongs);
+  };
+
   const skipTrackHandler = async (direction) => {
     const indexCurrentSong = songs.findIndex(
       (song) => song.id === currentSong.id
@@ -39,9 +50,11 @@ const Player = () => {
       let prevSong = (indexCurrentSong - 1) % songs.length;
       if (prevSong < 0) prevSong += songs.length;
       await setCurrentSong(songs[prevSong]);
+      activeLibraryHandler(songs[prevSong]);
     } else if (direction === "skip-forward") {
       const nextSong = (indexCurrentSong + 1) % songs.length;
       await setCurrentSong(songs[nextSong]);
+      activeLibraryHandler(songs[nextSong]);
     }
     if (isPlaying) audioRef.current.play();
   };
@@ -57,18 +70,6 @@ const Player = () => {
     );
   };
 
-  useEffect(() => {
-    const newSongs = songs.map((songInSongs) => {
-      if (songInSongs.id === currentSong.id) {
-        return { ...songInSongs, active: true };
-      } else {
-        return { ...songInSongs, active: false };
-      }
-    });
-    setSongs(newSongs);
-    playAudio(isPlaying, audioRef);
-  }, [currentSong]);
-
   const trackAnimate = {
     transform: `translateX(${songInfo.animationPercentage}%)`,
   };
@@ -79,7 +80,7 @@ const Player = () => {
         <p>{getTime(songInfo.currentTime)}</p>
         <div
           style={{
-            background: `linear-gradient(${currentSong.color[0]}, ${currentSong.color[1]})`,
+            background: `linear-gradient(90deg,${currentSong.color[0]}, ${currentSong.color[1]})`,
           }}
           className="track"
         >
