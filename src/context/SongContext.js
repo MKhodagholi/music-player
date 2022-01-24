@@ -25,12 +25,18 @@ const SongProvider = ({ children }) => {
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,
+    animationPercentage: 0,
   });
 
   const timeUpdateHandler = (e) => {
     const currentTime = e.target.currentTime;
     const duration = e.target.duration;
-    setSongInfo({ currentTime, duration });
+    const roundCurrentTime = Math.round(currentTime);
+    const roundDuration = Math.round(duration);
+    const animationPercentage = Math.round(
+      (roundCurrentTime / roundDuration) * 100
+    );
+    setSongInfo({ currentTime, duration, animationPercentage });
   };
 
   const changeIsPlaying = () => {
