@@ -25,7 +25,7 @@ const LibrarySong = ({ song }) => {
       className={`library-song ${song.active && "selected"}`}
       onClick={() => clickSongHandler(song)}
     >
-      <img src={song.cover} />
+      <img src={song.cover} alt={song.name} />
       <div className="song-description">
         <h3>{song.name}</h3>
         <h4>{song.artist}</h4>
