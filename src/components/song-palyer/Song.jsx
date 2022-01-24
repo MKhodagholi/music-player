@@ -10,9 +10,17 @@ const Song = () => {
     setCurrentSong,
     audioRef,
     timeUpdateHandler,
+    isPlaying,
   } = context;
 
-
+  const endSongHandler = async () => {
+    const indexCurrentSong = songs.findIndex(
+      (song) => song.id === currentSong.id
+    );
+    const nextSong = (indexCurrentSong + 1) % songs.length;
+    await setCurrentSong(songs[nextSong]);
+    if (isPlaying) audioRef.current.play();
+  };
   return (
     <div className="song-container">
       <img src={currentSong.cover} />
@@ -22,6 +30,7 @@ const Song = () => {
         onTimeUpdate={timeUpdateHandler}
         ref={audioRef}
         src={currentSong.audio}
+        onEnded={endSongHandler}
       ></audio>
     </div>
   );
