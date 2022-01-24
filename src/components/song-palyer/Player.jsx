@@ -31,7 +31,9 @@ const Player = () => {
   };
 
   const skipTrackHandler = (direction) => {
-    const indexCurrentSong = songs.findIndex((song) => song === currentSong);
+    const indexCurrentSong = songs.findIndex(
+      (song) => song.id === currentSong.id
+    );
     if (direction === "skip-back") {
       let prevSong = (indexCurrentSong - 1) % songs.length;
       if (prevSong < 0) prevSong += songs.length;
@@ -55,30 +57,21 @@ const Player = () => {
 
   useEffect(() => {
     const newSongs = songs.map((songInSongs) => {
-      if (songInSongs === currentSong) {
+      if (songInSongs.id === currentSong.id) {
         return { ...songInSongs, active: true };
       } else {
         return { ...songInSongs, active: false };
       }
     });
-    console.log(newSongs);
-    console.log(currentSong);
     setSongs(newSongs);
-    // setSongs(newSongs);
-    // setTimeout(() => {
-    //   setSongs(newSongs);
-    // }, 300);
-    // console.log(newSongs);
-    // setSongs(newSongs);
-    // console.log(currentSong);
-    // if (isPlaying) {
-    //   const playPromise = audioRef.current.play();
-    //   if (playPromise !== undefined) {
-    //     playPromise.then((audio) => {
-    //       audioRef.current.play();
-    //     });
-    //   }
-    // }
+    if (isPlaying) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then((audio) => {
+          audioRef.current.play();
+        });
+      }
+    }
   }, [currentSong]);
 
   return (
