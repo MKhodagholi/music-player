@@ -31,18 +31,19 @@ const Player = () => {
     changeIsPlaying();
   };
 
-  const skipTrackHandler = (direction) => {
+  const skipTrackHandler = async (direction) => {
     const indexCurrentSong = songs.findIndex(
       (song) => song.id === currentSong.id
     );
     if (direction === "skip-back") {
       let prevSong = (indexCurrentSong - 1) % songs.length;
       if (prevSong < 0) prevSong += songs.length;
-      setCurrentSong(songs[prevSong]);
+      await setCurrentSong(songs[prevSong]);
     } else if (direction === "skip-forward") {
       const nextSong = (indexCurrentSong + 1) % songs.length;
-      setCurrentSong(songs[nextSong]);
+      await setCurrentSong(songs[nextSong]);
     }
+    if (isPlaying) audioRef.current.play();
   };
 
   const dragHandler = (e) => {
