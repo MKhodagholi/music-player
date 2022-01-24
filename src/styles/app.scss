@@ -14,6 +14,14 @@ h4 {
   color: rgb(100, 100, 100);
 }
 
+.app {
+  transition: all 0.5s ease;
+}
+
+.library-open {
+  margin-left: 30rem;
+}
+
 @import "./player";
 @import "./song";
 @import "./library";
