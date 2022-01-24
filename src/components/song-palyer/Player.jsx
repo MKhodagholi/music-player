@@ -7,6 +7,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { SongContext } from "../../context/SongContext";
 import { useEffect } from "react";
+import { playAudio } from "../../asset/utils";
 
 const Player = () => {
   const context = useContext(SongContext);
@@ -64,14 +65,7 @@ const Player = () => {
       }
     });
     setSongs(newSongs);
-    if (isPlaying) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then((audio) => {
-          audioRef.current.play();
-        });
-      }
-    }
+    playAudio(isPlaying, audioRef);
   }, [currentSong]);
 
   return (
