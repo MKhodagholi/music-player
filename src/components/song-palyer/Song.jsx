@@ -23,7 +23,7 @@ const Song = () => {
   };
   return (
     <div className="song-container">
-      <img src={currentSong.cover} />
+      <img src={currentSong.cover} alt={currentSong.name} />
       <h2>{currentSong.name}</h2>
       <h3>{currentSong.artist}</h3>
       <audio
