@@ -4,10 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SongContext } from "../../context/SongContext";
-import { useEffect } from "react";
-import { playAudio } from "../../asset/utils";
 
 const Player = () => {
   const context = useContext(SongContext);
