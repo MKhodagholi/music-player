@@ -34,7 +34,9 @@
 
 .library-active {
   transform: translateX(0);
+  background-color: white;
   opacity: 1;
+  z-index: 2;
 }
 
 .song-description {
@@ -44,5 +46,11 @@
   }
   h4 {
     font-size: 0.7rem;
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .library {
+    width: 100%;
   }
 }
