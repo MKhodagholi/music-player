@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 
+import { SongProvider } from "./context/SongContext";
 import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SongProvider>
+      <App />
+    </SongProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
